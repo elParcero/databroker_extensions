@@ -20,7 +20,7 @@ from databroker.assets.handlers import AreaDetectorTiffHandler
 from pymongo.errors import CursorNotFound
 from collections import defaultdict
 
-def file_sizes(db, since, until):
+def file_sizes(db, since, until, plan=None, detector=None):
     '''
         This function searches for keys that are stored via filestore in a
         database, and gathers the SPEC id's from them.
@@ -31,8 +31,10 @@ def file_sizes(db, since, until):
     timestamp = 0.0
 
     files = []
-
-    hdrs = db(since=since, until=until)
+    if plan is not None:
+        hdrs = db(since=since, until=until, plan_name=plan)
+    else:
+        hdrs = db(since=since, until=until)
     hdrs = iter(hdrs)
     while True:
         try:
