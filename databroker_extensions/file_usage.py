@@ -51,38 +51,73 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                 if not val:
                                     # get the datum
                                     if key in event['data']:
-                                        datum_id = event['data'][key]
-                                        try:
-                                            resource = db.reg.resource_given_datum_id(datum_id)
-                                        except:
-                                            print('No datum found for resource: {}'.format(datum_id))
-                                        resource_id = resource['uid']
-                                        if resource_id in used_resources:
-                                            continue
+                                        if detector:
+                                            if detector == key:
+                                                datum_id = event['data'][key]
+                                                try:
+                                                    resource = db.reg.resource_given_datum_id(datum_id)
+                                                except:
+                                                    print('No datum found for resource: {}'.format(datum_id))
+                                                resource_id = resource['uid']
+                                                if resource_id in used_resources:
+                                                    continue
+                                                else:
+                                                    used_resources.add(resource_id)
+                                                    datum_gen = db.reg.datum_gen_given_resource(resource)
+                                                    try:
+                                                        datum_kwargs_list = [datum['datum_kwargs'] for datum in datum_gen]
+                                                    except TypeError:
+                                                        print('type error for resource: {}'.format(resource))
+                                                        continue
+                                                    timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(event['time'])))
+                                                    timestamp = time.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
+                                                    timestamp = datetime.datetime.fromtimestamp(mktime(timestamp))
+                                                    try:
+                                                        fh = db.reg.get_spec_handler(resource_id)
+                                                    except OSError:
+                                                        print('OS error for resource: {}'.format(resource))
+                                                    try:
+                                                        file_lists = fh.get_file_list(datum_kwargs_list)
+                                                        file_size = get_file_size(file_lists)
+                                                    except KeyError:
+                                                        print('key error for datum datum kwargs: {}'.format(datum_kwargs_list))
+                                                        file_size = 0.0
+                                                    time_size[timestamp] = file_size
+                                                    print(fh)
+                                                    print(file_size)
                                         else:
-                                            used_resources.add(resource_id)
-                                            datum_gen = db.reg.datum_gen_given_resource(resource)
+                                            datum_id = event['data'][key]
                                             try:
-                                                datum_kwargs_list = [datum['datum_kwargs'] for datum in datum_gen]
-                                            except TypeError:
-                                                print('type error for resource: {}'.format(resource))
+                                                resource = db.reg.resource_given_datum_id(datum_id)
+                                            except:
+                                                print('No datum found for resource: {}'.format(datum_id))
+                                            resource_id = resource['uid']
+                                            if resource_id in used_resources:
                                                 continue
-                                            timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(event['time'])))
-                                            timestamp = time.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
-                                            timestamp = datetime.datetime.fromtimestamp(mktime(timestamp))
-                                            try:
-                                                fh = db.reg.get_spec_handler(resource_id)
-                                            except OSError:
-                                                print('OS error for resource: {}'.format(resource))
-                                            try:
-                                                file_lists = fh.get_file_list(datum_kwargs_list)
-                                                file_size = get_file_size(file_lists)
-                                            except KeyError:
-                                                print('key error for datum datum kwargs: {}'.format(datum_kwargs_list))
-                                                file_size = 0.0
-                                            time_size[timestamp] = file_size
-                                            print(fh)
-                                            print(file_size)
+                                            else:
+                                                used_resources.add(resource_id)
+                                                datum_gen = db.reg.datum_gen_given_resource(resource)
+                                                try:
+                                                    datum_kwargs_list = [datum['datum_kwargs'] for datum in datum_gen]
+                                                except TypeError:
+                                                    print('type error for resource: {}'.format(resource))
+                                                    continue
+                                                timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(event['time'])))
+                                                timestamp = time.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
+                                                timestamp = datetime.datetime.fromtimestamp(mktime(timestamp))
+                                                try:
+                                                    fh = db.reg.get_spec_handler(resource_id)
+                                                except OSError:
+                                                    print('OS error for resource: {}'.format(resource))
+                                                try:
+                                                    file_lists = fh.get_file_list(datum_kwargs_list)
+                                                    file_size = get_file_size(file_lists)
+                                                except KeyError:
+                                                    print('key error for datum datum kwargs: {}'.format(datum_kwargs_list))
+                                                    file_size = 0.0
+                                                time_size[timestamp] = file_size
+                                                print(fh)
+                                                print(file_size)
                     except StopIteration:
                         break
                     except KeyError:
