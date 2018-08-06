@@ -118,6 +118,7 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                 time_size[timestamp] = file_size
                                                 print(fh)
                                                 print(file_size)
+                                                get_file_last_mod(file_list)
                     except StopIteration:
                         break
                     except KeyError:
@@ -140,3 +141,8 @@ def get_file_size(file_list):
         if os.path.isfile(file):
             sizes.append(os.path.getsize(file))
     return sum(sizes)
+
+def get_file_last_mod(file_list):
+    for file in file_list:
+        if os.path.isfile(file):
+            print("{} last modified: {}".format(file, time.ctime(os.path.getmtime(file))))
