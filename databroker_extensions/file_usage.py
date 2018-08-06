@@ -155,6 +155,18 @@ def file_sizes(db, since, until, plan=None, detector=None):
     return time_size
 
 def get_file_size(file_list):
+    '''
+    returns file usage
+    
+    Parameters
+    ----------
+    file_list: list
+        each file in the list will be inspected to extract file usage
+    Returns
+    -------
+    sum(sizes): int
+        file usage per file gets summed into an int
+    '''
     sizes = []
     for file in file_list:
         if os.path.isfile(file):
@@ -162,11 +174,27 @@ def get_file_size(file_list):
     return sum(sizes)
 
 def get_file_last_mod(file_list):
+    '''
+    prints when files were last modified
+
+    Parameters
+    ----------
+    file_list: list
+        each file in the list will be inspected to extract last modification of the files
+    '''
     for file in file_list:
         if os.path.isfile(file):
             print("{} last modified: {}".format(file, time.ctime(os.path.getmtime(file))))
 
 def get_file_last_accessed(file_list):
+    '''
+    prints when files were last accessed 
+
+    Parameters
+    ----------
+    file_list: list
+        each file in the list will be inspected to extract last accessed of the files
+    '''
     for file in file_list:
         if os.path.isfile(file):
             print("{} last accessed: {}".format(file, time.ctime(os.stat(file).st_atime)))
