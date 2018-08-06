@@ -84,7 +84,7 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                         file_size = 0.0
                                                     time_size[timestamp] = file_size
                                                     print(fh)
-                                                    print(file_size)
+                                                    print("{0}:{1}".format(key, file_size))
                                         else:
                                             datum_id = event['data'][key]
                                             try:
