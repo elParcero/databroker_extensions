@@ -118,7 +118,8 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                 time_size[timestamp] = file_size
                                                 print(fh)
                                                 print(file_size)
-                                                get_file_last_mod(file_lists)
+                                                #get_file_last_mod(file_lists)
+                                                get_file_last_accessed(file_lists)
                     except StopIteration:
                         break
                     except KeyError:
@@ -146,3 +147,9 @@ def get_file_last_mod(file_list):
     for file in file_list:
         if os.path.isfile(file):
             print("{} last modified: {}".format(file, time.ctime(os.path.getmtime(file))))
+
+def get_file_last_accessed(file_list):
+    for file in file_list:
+        if os.path.isfile(file):
+            print("{} last accessed: {}".format(file, time.ctime(os.stat(file).st_atime)))
+
