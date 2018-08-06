@@ -118,7 +118,7 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                 time_size[timestamp] = file_size
                                                 print(fh)
                                                 print(file_size)
-                                                get_file_last_mod(file_list)
+                                                get_file_last_mod(file_lists)
                     except StopIteration:
                         break
                     except KeyError:
