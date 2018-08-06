@@ -22,8 +22,26 @@ from collections import defaultdict
 
 def file_sizes(db, since, until, plan=None, detector=None):
     '''
-        This function searches for keys that are stored via filestore in a
-        database, and gathers the SPEC id's from them.
+    This function searches for keys that are stored via filestore in a
+    database, and gathers the SPEC id's from them.
+    
+    Parameters
+    ----------
+    db: databroker object
+        specifies beamline to inspect chosen by user
+    since: str e.g. yyyy-mm-dd
+        data in which to start searching through metadata
+    until: str e.g. yyyy-mm-dd
+        data in which to end searching through metadata
+    plan: str (Optional) default is None
+        user can specify type of plan
+    detector: str (Optional) default is None
+        user can specify type of detector
+    Returns
+    -------
+    time_size: dict
+        each key holds a timestamp and the values are file usage that relate to the runs from the timestamp
+        dictionary can be made into a dataframe object 
     '''
     FILESTORE_KEY = "FILESTORE:"
     time_size = dict()
