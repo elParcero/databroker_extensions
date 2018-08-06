@@ -7,9 +7,9 @@ import datetime
 import time
 from time import mktime
 from pymongo.errors import CursorNotFound
-from .file_usage import file_sizes, get_file_sizes
+from .file_usage import file_sizes, get_file_size
 from collections import defaultdict
 from ._version import get_versions
 __version__ = get_versions()['version']
 del get_versions
-# going through the system
+# going through the system v2
