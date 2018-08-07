@@ -14,6 +14,10 @@ Extensions for databroker software.
 * Free software: 3-clause BSD license
 * Documentation: (COMING SOON!) https://elParcero.github.io/databroker_extensions.
 
+### Installing Package
+'''
+git clone https://github.com/elParcero/databroker_extensions.git
+'''
 Features
 --------
 
