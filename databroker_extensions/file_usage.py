@@ -250,7 +250,6 @@ def get_file_last_accessed(file_list):
                 if file1 > file2:
                     last_accessed = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file1)))
                     print(last_accessed)
-                    break 
                 else:
                     last_accessed = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file2))
             except IndexError:
