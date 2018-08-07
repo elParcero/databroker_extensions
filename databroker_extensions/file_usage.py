@@ -248,11 +248,11 @@ def get_file_last_accessed(file_list):
                 file1 = os.stat(file).st_atime
                 file2 = os.stat(file_list[i+1]).st_atime
                 if file1 > file2:
-                    print(file1)
-                    raise Exception 
-                    last_accessed = time.ctime(file1)
+                    last_accessed = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file1)))
+                    print(last_accessed)
+                    raise Exception
                 else:
-                    last_accessed = time.ctime(file2)
+                    last_accessed = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file2))
             except IndexError:
                 print("Index out of bounds.") 
     return last_accessed
