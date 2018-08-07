@@ -139,9 +139,10 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                 time_size[timestamp] = file_size
                                                 print(fh)
                                                 print(file_size)
-                                                #get_file_last_mod(file_lists)
                                                 print(file_lists)
-                                                get_file_last_accessed(file_lists)
+                                                last_accessed = get_file_last_accessed(file_lists)
+                                                last_modified = get_file_last_mod(file_lists)
+                                                print("Last mod:{} | Last accessed {}".format(last_modified, last_accessed))
                     except StopIteration:
                         break
                     except KeyError:
@@ -188,10 +189,19 @@ def get_file_last_mod(file_list):
     file_list: list
         each file in the list will be inspected to extract last modification of the files
     '''
-    for file in file_list:
+    for i, file in enumerate(file_list):
         if os.path.isfile(file):
-            print("{} last modified: {}".format(file, time.ctime(os.path.getmtime(file))))
-
+            try:
+                file1 = os.path.getmtime(file)
+                file2 = os.path.getmtime(file_lists[i+1])
+                if file1 > file2:
+                    recent_mod = time.ctime(file1)
+                else:
+                    recent_mod = time.ctime(file2)
+            except IndexError:
+                print("Index out of bounds.") 
+    return recent_mod
+            
 def get_file_last_accessed(file_list):
     '''
     prints when files were last accessed 
@@ -201,8 +211,16 @@ def get_file_last_accessed(file_list):
     file_list: list
         each file in the list will be inspected to extract last accessed of the files
     '''
-    print("hello")
-    for file in file_list:
+    for i, file in enumerate(file_list):
         if os.path.isfile(file):
-            print("{} last accessed: {}".format(file, time.ctime(os.stat(file).st_atime)))
+            try:
+                file1 = os.stat(file).st_atime
+                file2 = os.stat(file_lists[i+1]).st_atime
+                if file1 > file2:
+                    recent_acc = time.ctime(file1)
+                else:
+                    recent_acc = time.ctime(file2)
+            except IndexError:
+                print("Index out of bounds.") 
+    return recent_acc
 
