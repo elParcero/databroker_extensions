@@ -18,5 +18,5 @@ Features
 --------
 
 * Extracts file usage 
-* Prints file last modified
-* Prints file last accessed
+* Extracts file last modified
+* Extracts file last accessed
