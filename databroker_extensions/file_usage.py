@@ -117,10 +117,10 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                     print("{0}:{1}".format(key, file_size))
                                                     print(file_lists)
                                                     print("Last mod:{} | Last accessed {}".format(last_modified, last_accessed))
-                                                    properties['file_size'] = file_size
-                                                    properties['file_last_accessed'] = last_accessed
-                                                    properties['file_last_modified'] = last_modified
-                                                    time_size[timestamp] = properties
+                                                    file_properties['file_size'] = file_size
+                                                    file_properties['file_last_accessed'] = last_accessed
+                                                    file_properties['file_last_modified'] = last_modified
+                                                    time_size[timestamp] = file_properties
                                         else:
                                             datum_id = event['data'][key]
                                             try:
@@ -160,10 +160,10 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                 print(file_size)
                                                 print(file_lists)
                                                 print("Last mod:{} | Last accessed {}".format(last_modified, last_accessed))
-                                                properties['file_size'] = file_size
-                                                properties['file_last_accessed'] = last_accessed
-                                                properties['file_last_modified'] = last_modified
-                                                time_size[timestamp] = properties
+                                                file_properties['file_size'] = file_size
+                                                file_properties['file_last_accessed'] = last_accessed
+                                                file_properties['file_last_modified'] = last_modified
+                                                time_size[timestamp] = file_properties
                     except StopIteration:
                         break
                     except KeyError:
