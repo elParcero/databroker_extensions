@@ -45,6 +45,7 @@ def file_sizes(db, since, until, plan=None, detector=None):
     '''
     FILESTORE_KEY = "FILESTORE:"
     time_size = dict()
+    file_properties = dict()
     used_resources = set()
     timestamp = 0.0
 
@@ -100,9 +101,18 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                     except KeyError:
                                                         print('key error for datum datum kwargs: {}'.format(datum_kwargs_list))
                                                         file_size = 0.0
-                                                    time_size[timestamp] = file_size
+                                                    if not file_lists:
+                                                        raise OSError("No files found for {}".format(datum_kwargs_list))
+                                                    last_accessed = get_file_last_accessed(file_lists)
+                                                    last_modified = get_file_last_mod(file_lists)
                                                     print(fh)
                                                     print("{0}:{1}".format(key, file_size))
+                                                    print(file_lists)
+                                                    print("Last mod:{} | Last accessed {}".format(last_modified, last_accessed))
+                                                    properties['file_size'] = file_size
+                                                    properties['file_last_accessed'] = last_accessed
+                                                    properties['file_last_modified'] = last_modified
+                                                    time_size[timestamp] = properties
                                         else:
                                             datum_id = event['data'][key]
                                             try:
@@ -136,13 +146,16 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                     file_size = 0.0
                                                 if not file_lists:
                                                     raise OSError("No files found for {}".format(datum_kwargs_list))
-                                                time_size[timestamp] = file_size
+                                                last_accessed = get_file_last_accessed(file_lists)
+                                                last_modified = get_file_last_mod(file_lists)
                                                 print(fh)
                                                 print(file_size)
                                                 print(file_lists)
-                                                last_accessed = get_file_last_accessed(file_lists)
-                                                last_modified = get_file_last_mod(file_lists)
                                                 print("Last mod:{} | Last accessed {}".format(last_modified, last_accessed))
+                                                properties['file_size'] = file_size
+                                                properties['file_last_accessed'] = last_accessed
+                                                properties['file_last_modified'] = last_modified
+                                                time_size[timestamp] = properties
                     except StopIteration:
                         break
                     except KeyError:
