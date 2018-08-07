@@ -162,7 +162,7 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                 print("File usage: {}".format(file_size))
                                                 print("There are {} files in this object".format(len(file_lists)))
                                                 print("Last mod:{} | Last accessed {}".format(last_modified, last_accessed))
-                                                print(timestamp)
+                                                print("Timestamp format = {}".format(timestamp))
                                                 file_properties['file_size'] = file_size
                                                 file_properties['file_last_accessed'] = last_accessed
                                                 file_properties['file_last_modified'] = last_modified
