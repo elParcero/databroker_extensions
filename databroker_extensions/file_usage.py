@@ -251,6 +251,8 @@ def get_file_last_accessed(file_list):
                     last_accessed = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file1)))
                     last_accessed = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
                     last_accessed = datetime.datetime.fromtimestamp(mktime(last_accessed))
+                    print(last_accessed)
+                    raise Exception
                 else:
                     last_accessed = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file2)))
                     last_accessed = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
