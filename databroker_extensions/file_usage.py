@@ -117,10 +117,12 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                     print("{0}:{1}".format(key, file_size))
                                                     print("There are {} files in this object".format(len(file_lists)))
                                                     print("Last mod:{} | Last accessed {}".format(last_modified, last_accessed))
+                                                    print(timestamp)
                                                     file_properties['file_size'] = file_size
                                                     file_properties['file_last_accessed'] = last_accessed
                                                     file_properties['file_last_modified'] = last_modified
                                                     time_size[timestamp] = file_properties
+                                                    break
                                         else:
                                             datum_id = event['data'][key]
                                             try:
