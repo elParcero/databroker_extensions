@@ -217,7 +217,7 @@ def get_file_last_mod(file_list):
         if os.path.isfile(file):
             try:
                 file1 = os.path.getmtime(file)
-                file2 = os.path.getmtime(file_lists[i+1])
+                file2 = os.path.getmtime(file_list[i+1])
                 if file1 > file2:
                     last_modified = time.ctime(file1)
                 else:
@@ -242,7 +242,7 @@ def get_file_last_accessed(file_list):
         if os.path.isfile(file):
             try:
                 file1 = os.stat(file).st_atime
-                file2 = os.stat(file_lists[i+1]).st_atime
+                file2 = os.stat(file_list[i+1]).st_atime
                 if file1 > file2:
                     last_accessed = time.ctime(file1)
                 else:
