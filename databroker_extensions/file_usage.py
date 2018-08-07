@@ -249,10 +249,12 @@ def get_file_last_accessed(file_list):
                 file2 = os.stat(file_list[i+1]).st_atime
                 if file1 > file2:
                     last_accessed = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file1)))
-                    print(last_accessed)
-                    break
+                    last_accessed = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
+                    last_accessed = datetime.datetime.fromtimestamp(mktime(last_accessed))
                 else:
                     last_accessed = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file2)))
+                    last_accessed = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
+                    last_accessed = datetime.datetime.fromtimestamp(mktime(last_accessed))
             except IndexError:
                 print("Index out of bounds.") 
     return last_accessed
