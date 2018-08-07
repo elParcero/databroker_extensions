@@ -1,5 +1,4 @@
 '''
-Author: Jorge Diaz Jr
 This program goes through the metadata for
 CHX beamline and extracts file usage
 - parameters may be specified such as 
@@ -208,12 +207,12 @@ def get_file_last_mod(file_list):
                 file1 = os.path.getmtime(file)
                 file2 = os.path.getmtime(file_lists[i+1])
                 if file1 > file2:
-                    recent_mod = time.ctime(file1)
+                    last_modified = time.ctime(file1)
                 else:
-                    recent_mod = time.ctime(file2)
+                    last_modified = time.ctime(file2)
             except IndexError:
                 print("Index out of bounds.") 
-    return recent_mod
+    return last_modified
             
 def get_file_last_accessed(file_list):
     '''
@@ -230,10 +229,10 @@ def get_file_last_accessed(file_list):
                 file1 = os.stat(file).st_atime
                 file2 = os.stat(file_lists[i+1]).st_atime
                 if file1 > file2:
-                    recent_acc = time.ctime(file1)
+                    last_accessed = time.ctime(file1)
                 else:
-                    recent_acc = time.ctime(file2)
+                    last_accessed = time.ctime(file2)
             except IndexError:
                 print("Index out of bounds.") 
-    return recent_acc
+    return last_accessed
 
