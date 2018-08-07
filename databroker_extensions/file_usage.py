@@ -117,7 +117,6 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                     print("{0}:{1}".format(key, file_size))
                                                     print("There are {} files in this object".format(len(file_lists)))
                                                     print("Last mod:{} | Last accessed {}".format(last_modified, last_accessed))
-                                                    print(timestamp)
                                                     file_properties['file_size'] = file_size
                                                     file_properties['file_last_accessed'] = last_accessed
                                                     file_properties['file_last_modified'] = last_modified
@@ -162,12 +161,10 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                 print("File usage: {}".format(file_size))
                                                 print("There are {} files in this object".format(len(file_lists)))
                                                 print("Last mod:{} | Last accessed {}".format(last_modified, last_accessed))
-                                                print("Timestamp format = {}".format(timestamp))
                                                 file_properties['file_size'] = file_size
                                                 file_properties['file_last_accessed'] = last_accessed
                                                 file_properties['file_last_modified'] = last_modified
                                                 time_size[timestamp] = file_properties
-                                                break
                     except StopIteration:
                         break
                     except KeyError:
@@ -183,6 +180,7 @@ def file_sizes(db, since, until, plan=None, detector=None):
         except StopIteration:
             break
     return time_size
+
 
 def get_file_size(file_list):
     '''
@@ -205,31 +203,7 @@ def get_file_size(file_list):
           raise OSError("File not found at file path {}".format(file))
     return sum(sizes)
 
-def get_file_last_mod(file_list):
-    '''
-    loops through list of files and checks to see which file was modified most recently
-    Parameters
-    ----------
-    file_list: list
-        each file in the list will be inspected to extract the timestamp of the file that was most recently modified 
-    Returns
-    -------
-    last_modified: str
-        timestamp of the most recent modified file in the list
-    '''
-    for i, file in enumerate(file_list):
-        if os.path.isfile(file):
-            try:
-                file1 = os.path.getmtime(file)
-                file2 = os.path.getmtime(file_list[i+1])
-                if file1 > file2:
-                    last_modified = time.ctime(file1)
-                else:
-                    last_modified = time.ctime(file2)
-            except IndexError:
-                print("Index out of bounds.") 
-    return last_modified
-            
+
 def get_file_last_accessed(file_list):
     '''
     loops through list of files and checks to see which file was accessed most recently
@@ -239,7 +213,7 @@ def get_file_last_accessed(file_list):
         each file in the list will be inspected to extract the timestamp of the file that was most recently accessed 
     Returns
     -------
-    last_modified: str
+    last_accessed: datetime obj
         timestamp of the most recent accessed file in the list
     '''
     for i, file in enumerate(file_list):
@@ -251,8 +225,6 @@ def get_file_last_accessed(file_list):
                     last_accessed = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file1)))
                     last_accessed = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
                     last_accessed = datetime.datetime.fromtimestamp(mktime(last_accessed))
-                    print(last_accessed)
-                    raise Exception
                 else:
                     last_accessed = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file2)))
                     last_accessed = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
@@ -261,12 +233,36 @@ def get_file_last_accessed(file_list):
                 print("Index out of bounds.") 
     return last_accessed
 
-'''
-timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(event['time'])))
-timestamp = time.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
-timestamp = datetime.datetime.fromtimestamp(mktime(timestamp))
-'''
 
+def get_file_last_mod(file_list):
+    '''
+    loops through list of files and checks to see which file was modified most recently
+    Parameters
+    ----------
+    file_list: list
+        each file in the list will be inspected to extract the timestamp of the file that was most recently modified 
+    Returns
+    -------
+    last_modified: datetime obj
+        timestamp of the most recent modified file in the list
+    '''
+    for i, file in enumerate(file_list):
+        if os.path.isfile(file):
+            try:
+                file1 = os.path.getmtime(file)
+                file2 = os.path.getmtime(file_list[i+1])
+                if file1 > file2:
+                    last_modified = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file1)))
+                    last_modified = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
+                    last_modified = datetime.datetime.fromtimestamp(mktime(last_accessed))
+                else:
+                    last_modified = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file2)))
+                    last_modified = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
+                    last_modified = datetime.datetime.fromtimestamp(mktime(last_accessed))
+            except IndexError:
+                print("Index out of bounds.") 
+    return last_modified
+            
 
 
 
