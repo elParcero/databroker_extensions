@@ -203,12 +203,15 @@ def get_file_size(file_list):
 
 def get_file_last_mod(file_list):
     '''
-    prints when files were last modified
-
+    loops through list of files and checks to see which file was modified most recently
     Parameters
     ----------
     file_list: list
-        each file in the list will be inspected to extract last modification of the files
+        each file in the list will be inspected to extract the timestamp of the file that was most recently modified 
+    Returns
+    -------
+    last_modified: str
+        timestamp of the most recent modified file in the list
     '''
     for i, file in enumerate(file_list):
         if os.path.isfile(file):
@@ -225,12 +228,15 @@ def get_file_last_mod(file_list):
             
 def get_file_last_accessed(file_list):
     '''
-    prints when files were last accessed 
-
+    loops through list of files and checks to see which file was accessed most recently
     Parameters
     ----------
     file_list: list
-        each file in the list will be inspected to extract last accessed of the files
+        each file in the list will be inspected to extract the timestamp of the file that was most recently accessed 
+    Returns
+    -------
+    last_modified: str
+        timestamp of the most recent accessed file in the list
     '''
     for i, file in enumerate(file_list):
         if os.path.isfile(file):
