@@ -115,7 +115,7 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                     last_modified = get_file_last_mod(file_lists)
                                                     print(fh)
                                                     print("{0}:{1}".format(key, file_size))
-                                                    print(file_lists)
+                                                    print("There are {} files in this object".format(len(file_lists)))
                                                     print("Last mod:{} | Last accessed {}".format(last_modified, last_accessed))
                                                     file_properties['file_size'] = file_size
                                                     file_properties['file_last_accessed'] = last_accessed
@@ -157,8 +157,8 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                 last_accessed = get_file_last_accessed(file_lists)
                                                 last_modified = get_file_last_mod(file_lists)
                                                 print(fh)
-                                                print(file_size)
-                                                print(file_lists)
+                                                print("File usage: {}".format(file_size))
+                                                print("There are {} files in this object".format(len(file_lists)))
                                                 print("Last mod:{} | Last accessed {}".format(last_modified, last_accessed))
                                                 file_properties['file_size'] = file_size
                                                 file_properties['file_last_accessed'] = last_accessed
