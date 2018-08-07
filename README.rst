@@ -26,21 +26,21 @@ If the user just wants to find file usage, the following block of code will work
 
 ```
 broker_extensions import *
-
+```
 db = Broker.named("chx")
-
+```
 db.reg.register_handler("AD_EIGER", EigerHandler )
-
+```
 db.reg.register_handler("AD_EIGER2", EigerHandler)
-
+```
 db.reg.register_handler("AD_EIGER_SLICE", EigerHandler)
-
+```
 db.reg.register_handler("AD_TIFF", AreaDetectorTiffHandler)
-
+```
 since = "2017-01-01"
-
+```
 until = "2018-12-31"
-
+```
 file_size = file_sizes(db, since, until, plan="count")
 ```
 
