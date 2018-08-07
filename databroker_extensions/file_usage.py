@@ -165,6 +165,7 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                 file_properties['file_last_accessed'] = last_accessed
                                                 file_properties['file_last_modified'] = last_modified
                                                 time_size[timestamp] = file_properties
+                                                break
                     except StopIteration:
                         break
                     except KeyError:
