@@ -134,6 +134,8 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                 except KeyError:
                                                     print('key error for datum datum kwargs: {}'.format(datum_kwargs_list))
                                                     file_size = 0.0
+                                                if not file_lists:
+                                                    raise OSError("No files found for {}".format(datum_kwargs_list))
                                                 time_size[timestamp] = file_size
                                                 print(fh)
                                                 print(file_size)
