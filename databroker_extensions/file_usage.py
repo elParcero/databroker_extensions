@@ -39,8 +39,16 @@ def file_sizes(db, since, until, plan=None, detector=None):
     Returns
     -------
     time_size: dict
-        each key holds a timestamp and the values are file usage that relate to the runs from the timestamp
-        dictionary can be made into a dataframe object 
+        each key is a timestamp where each value is a dictionary(properties)
+        e.g. time_size = 
+            {
+             '2018-12-31 00:00:00':
+                    { 
+                      'file_size' : 34634234,
+                      'file_last_accessed': '2017-07-11 07:45:34',
+                      'file_last_modified': '2017-07-07 14:27:05'
+                    }
+            }
     '''
     FILESTORE_KEY = "FILESTORE:"
     time_size = dict()
@@ -69,6 +77,7 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                 if not val:
                                     # get the datum
                                     if key in event['data']:
+                                        # if user specifies a detector name this code block will run
                                         if detector:
                                             if detector == key:
                                                 datum_id = event['data'][key]
