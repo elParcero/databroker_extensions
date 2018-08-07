@@ -127,6 +127,7 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                     fh = db.reg.get_spec_handler(resource_id)
                                                 except OSError:
                                                     print('OS error for resource: {}'.format(resource))
+
                                                 try:
                                                     file_lists = fh.get_file_list(datum_kwargs_list)
                                                     file_size = get_file_size(file_lists)
@@ -170,8 +171,10 @@ def get_file_size(file_list):
     '''
     sizes = []
     for file in file_list:
-        if os.path.isfile(file):
+        try:
             sizes.append(os.path.getsize(file))
+        except OSError:
+          raise OSError("File not found at file path {}".format(file))
     return sum(sizes)
 
 def get_file_last_mod(file_list):
