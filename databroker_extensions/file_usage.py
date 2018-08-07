@@ -253,12 +253,12 @@ def get_file_last_mod(file_list):
                 file2 = os.path.getmtime(file_list[i+1])
                 if file1 > file2:
                     last_modified = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file1)))
-                    last_modified = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
-                    last_modified = datetime.datetime.fromtimestamp(mktime(last_accessed))
+                    last_modified = time.strptime(last_modified,'%Y-%m-%d %H:%M:%S')
+                    last_modified = datetime.datetime.fromtimestamp(mktime(last_modified))
                 else:
                     last_modified = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file2)))
-                    last_modified = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
-                    last_modified = datetime.datetime.fromtimestamp(mktime(last_accessed))
+                    last_modified = time.strptime(last_modified,'%Y-%m-%d %H:%M:%S')
+                    last_modified = datetime.datetime.fromtimestamp(mktime(last_modified))
             except IndexError:
                 print("Index out of bounds.") 
     return last_modified
