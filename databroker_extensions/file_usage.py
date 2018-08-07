@@ -137,6 +137,7 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                 print(fh)
                                                 print(file_size)
                                                 #get_file_last_mod(file_lists)
+                                                print(file_lists)
                                                 get_file_last_accessed(file_lists)
                     except StopIteration:
                         break
@@ -195,6 +196,7 @@ def get_file_last_accessed(file_list):
     file_list: list
         each file in the list will be inspected to extract last accessed of the files
     '''
+    print("hello")
     for file in file_list:
         if os.path.isfile(file):
             print("{} last accessed: {}".format(file, time.ctime(os.stat(file).st_atime)))
