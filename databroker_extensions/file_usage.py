@@ -221,6 +221,7 @@ def get_file_last_accessed(file_list):
             try:
                 file1 = os.stat(file).st_atime
                 file2 = os.stat(file_list[i+1]).st_atime
+                print("file1 = {} | file2 = {}".format(file1, file2))
                 if file1 > file2:
                     last_accessed = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file1)))
                     last_accessed = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
@@ -263,6 +264,4 @@ def get_file_last_mod(file_list):
                 print("Index out of bounds.") 
     return last_modified
             
-
-
 
