@@ -1,6 +1,4 @@
-===============================
-databroker_extensions
-===============================
+#Databroker Extensions
 
 .. image:: https://img.shields.io/travis/elParcero/databroker_extensions.svg
         :target: https://travis-ci.org/elParcero/databroker_extensions
