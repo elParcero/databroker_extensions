@@ -15,9 +15,9 @@ Extensions for databroker software.
 
 Installing
 ----------
-```
+``
 git clone https://github.com/elParcero/databroker_extensions.git
-```
+``
 
 Example 1
 ---------
