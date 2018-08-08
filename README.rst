@@ -21,6 +21,9 @@ Example 1
 ---------
 
 If the user just wants to find file usage, the following block of code will work and is an example using CHX beamline.
+.. codeblock :: python
+        hello = "hello"
+        world = "world"
 
 Example 2
 ---------
