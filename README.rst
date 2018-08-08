@@ -15,6 +15,8 @@ Extensions for databroker software.
 
 Installing
 ----------
+from your home directory, type in the following commands
+
 ``git clone https://github.com/elParcero/databroker_extensions.git``
 
 ``cd databroker_extensions``
