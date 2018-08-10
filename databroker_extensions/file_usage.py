@@ -230,8 +230,11 @@ def get_file_last_accessed(file_list):
                     print(last_accessed)
             except IndexError:
                 print("Index out of bounds.")
-    return last_accessed
-
+    try:
+        return last_accessed
+    except UnboundLocalError:
+        print(last_accessed)
+        
 def get_file_last_mod(file_list):
     '''
     loops through list of files and checks to see which file was modified most recently
