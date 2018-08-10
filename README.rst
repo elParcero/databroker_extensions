@@ -17,11 +17,11 @@ Installing
 ----------
 from your home directory, type in the following commands
 
-``git clone https://github.com/elParcero/databroker_extensions.git``
+.. code-block:: 
 
-``cd databroker_extensions``
-
-``pip install .``
+        git clone https://github.com/elParcero/databroker_extensions.git
+        cd databroker_extensions
+        pip install .
 
 Example 1
 ---------
