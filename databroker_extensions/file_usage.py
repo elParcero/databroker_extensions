@@ -120,6 +120,7 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                     file_properties['file_last_accessed'] = last_accessed
                                                     file_properties['file_last_modified'] = last_modified
                                                     time_size[timestamp] = file_properties
+                                                    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                                         else:
                                             datum_id = event['data'][key]
                                             try:
@@ -162,6 +163,7 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                 file_properties['file_last_accessed'] = last_accessed
                                                 file_properties['file_last_modified'] = last_modified
                                                 time_size[timestamp] = file_properties
+                                                print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                     except StopIteration:
                         break
                     except KeyError:
@@ -229,6 +231,7 @@ def get_file_last_accessed(file_list):
                     last_accessed = datetime.datetime.fromtimestamp(mktime(last_accessed))
                     print(last_accessed)
             except IndexError:
+                print(last_accessed)
                 print("Index out of bounds.")
     try:
         return last_accessed
