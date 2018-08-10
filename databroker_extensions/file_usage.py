@@ -222,19 +222,15 @@ def get_file_last_accessed(file_list):
                     last_accessed = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file1)))
                     last_accessed = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
                     last_accessed = datetime.datetime.fromtimestamp(mktime(last_accessed))
+                    print(last_accessed)
                 else:
                     last_accessed = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file2)))
                     last_accessed = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
                     last_accessed = datetime.datetime.fromtimestamp(mktime(last_accessed))
+                    print(last_accessed)
             except IndexError:
                 print("Index out of bounds.")
-    if last_accessed:
-        print("success")
-        return last_accessed
-    else:
-        print(last_accessed)
-        raise
-
+    return last_accessed
 
 def get_file_last_mod(file_list):
     '''
