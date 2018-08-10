@@ -15,14 +15,23 @@ Extensions for databroker software.
 
 Installing
 ----------
-```
-git clone https://github.com/elParcero/databroker_extensions.git
-```
+from your home directory, type in the following commands
+
+.. code-block:: 
+
+        git clone https://github.com/elParcero/databroker_extensions.git
+        cd databroker_extensions
+        pip install .
 
 Example 1
 ---------
 
 If the user just wants to find file usage, the following block of code will work and is an example using CHX beamline.
+
+.. code-block:: python
+
+        hello = "hello"
+        world = "world"
 
 Example 2
 ---------
