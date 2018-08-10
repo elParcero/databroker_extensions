@@ -115,13 +115,11 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                     last_modified = get_file_last_mod(file_lists)
                                                     print(fh)
                                                     print("{0}:{1}".format(key, file_size))
-                                                    print("There are {} files in this object".format(len(file_lists)))
                                                     print("Last mod:{} | Last accessed {}".format(last_modified, last_accessed))
                                                     file_properties['file_size'] = file_size
                                                     file_properties['file_last_accessed'] = last_accessed
                                                     file_properties['file_last_modified'] = last_modified
                                                     time_size[timestamp] = file_properties
-                                                    break
                                         else:
                                             datum_id = event['data'][key]
                                             try:
@@ -159,7 +157,6 @@ def file_sizes(db, since, until, plan=None, detector=None):
                                                 last_modified = get_file_last_mod(file_lists)
                                                 print(fh)
                                                 print("File usage: {}".format(file_size))
-                                                print("There are {} files in this object".format(len(file_lists)))
                                                 print("Last mod:{} | Last accessed {}".format(last_modified, last_accessed))
                                                 file_properties['file_size'] = file_size
                                                 file_properties['file_last_accessed'] = last_accessed
@@ -221,7 +218,6 @@ def get_file_last_accessed(file_list):
             try:
                 file1 = os.stat(file).st_atime
                 file2 = os.stat(file_list[i+1]).st_atime
-                print("file1 = {} | file2 = {}".format(file1, file2))
                 if file1 > file2:
                     last_accessed = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(file1)))
                     last_accessed = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
@@ -231,8 +227,13 @@ def get_file_last_accessed(file_list):
                     last_accessed = time.strptime(last_accessed,'%Y-%m-%d %H:%M:%S')
                     last_accessed = datetime.datetime.fromtimestamp(mktime(last_accessed))
             except IndexError:
-                print("Index out of bounds.") 
-    return last_accessed
+                print("Index out of bounds.")
+    if last_accessed:
+        print("success")
+        return last_accessed
+    else:
+        print(last_accessed)
+        raise
 
 
 def get_file_last_mod(file_list):
