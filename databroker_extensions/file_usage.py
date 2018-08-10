@@ -231,8 +231,8 @@ def get_file_last_accessed(file_list):
                     last_accessed = datetime.datetime.fromtimestamp(mktime(last_accessed))
                     print(last_accessed)
             except IndexError:
-                print(last_accessed)
                 print("Index out of bounds.")
+    # error occurs saying 'local variable 'last_accessed' referenced before assignment
     try:
         return last_accessed
     except UnboundLocalError:
