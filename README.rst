@@ -47,9 +47,47 @@ Example 2
 ---------
 If the user just wants to find file usage for specific plan, the following block of code will work and is an example using CHX beamline.
 
+.. code-block:: python
+        
+        from databroker_extensions import *
+
+        db = Broker.named("chx")
+        db.reg.register_handler("AD_EIGER", EigerHandler)
+        db.reg.register_handler("AD_EIGER2", EigerHandler)
+        db.reg.register_handler("AD_EIGER_SLICE", EigerHandler)
+        db.reg.register_handler("AD_TIFF", AreaDetectorTiffHandler)
+
+        plans = [...] # list of plan names
+        time_size = dict()
+        since="2015-01-01"
+        until="2018-12-31"
+        
+        for plan in plans:
+                time_size[plan] = file_sizes(db, since=since, until=until, plan=plan)
+
 Example 3
 ---------
 If the user just wants to find file usage for specific plan and detectors, the following block of code will work and is an example using CHX beamline.
+
+.. code-block:: python
+        
+        from databroker_extensions import *
+
+        db = Broker.named("chx")
+        db.reg.register_handler("AD_EIGER", EigerHandler)
+        db.reg.register_handler("AD_EIGER2", EigerHandler)
+        db.reg.register_handler("AD_EIGER_SLICE", EigerHandler)
+        db.reg.register_handler("AD_TIFF", AreaDetectorTiffHandler)
+
+        plans = [...]     # list of plan names
+        detectors = [...] # list of detector names
+        time_size = dict()
+        since="2015-01-01"
+        until="2018-12-31"
+        
+        for plan in plans:
+                for detector in detectors:
+                        time_size[plan][detector] = file_sizes(db, since=since, until=until, plan=plan, detector=detector)
 
 Features
 --------
