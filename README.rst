@@ -87,7 +87,7 @@ If the user just wants to find file usage for specific plan and detectors, the f
         
         for plan in plans:
                 for detector in detectors:
-                        time_size[plan][detector] = file_sizes(db, since=since, until=until, plan=plan, detector=detector)
+                        time_size[plan + '_' + detector] = file_sizes(db, since=since, until=until, plan=plan, detector=detector)
 
 Features
 --------
